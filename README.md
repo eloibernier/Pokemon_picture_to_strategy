@@ -4,14 +4,14 @@ A multimodal machine learning project that combines **computer vision** and **tr
 
 This system connects two traditionally separate machine learning tasks:
 
-1. **Visual understanding** — identifying Pokémon from images using convolutional neural networks (CNNs)
-2. **Strategic reasoning** — modeling team composition and recommending the best 6th team member using transformer architectures and learned feature representations
+1. **Visual understanding** identifying Pokémon from images using convolutional neural networks (CNNs)
+2. **Strategic reasoning** modeling team composition and recommending the best 6th team member using transformer architectures and learned feature representations
 
 ---
 
 ## Files
 
-### `pokemon_team_builder_v2.ipynb` — Training Notebook
+### `pokemon_team_builder_v2.ipynb` Training Notebook
 
 The main notebook. It trains a neural network to recognize 150 Gen-I Pokémon from images and includes a basic team recommender.
 
@@ -119,11 +119,7 @@ best_model_v2.pth     ← saved model weights
         ↓
 team_recommender.ipynb          ← loads model, classifies images, recommends 6th member
 ```
----
 
-# Pokémon Team Builder — Project Overview
-
-A computer vision + game strategy project that combines deep learning image classification with Pokémon team optimization. The system identifies Pokémon from photos and recommends the best 6th team member based on type coverage, weakness mitigation, and role balance.
 
 ---
 
@@ -162,58 +158,6 @@ The device selection in the notebook now picks **`cuda → mps → cpu`** so it 
 
 ---
 
-## Files
-
-### `pokemon_team_builder_v2.ipynb` — Training Notebook
-
-The main notebook. It trains a neural network to recognize 150 Gen-I Pokémon from images and includes a basic team recommender.
-
-**Dataset**
-- 6,820 images across 150 Pokémon classes (avg. ~45 images per class)
-- Exploratory data analysis: class balance, image size distribution, visual samples
-
-**Data preparation**
-- Stratified 70/15/15 train/val/test split — every class is proportionally represented in all three sets
-- Training augmentations: horizontal flip, rotation ±15°, color jitter
-- All images resized to 224×224
-
-**Model — EfficientNet-B0 with transfer learning**
-
-Training runs in two phases:
-
-| Phase | What trains | Epochs | Learning rate |
-|-------|-------------|--------|---------------|
-| 1 | Classifier head only (backbone frozen) | 5 | 1e-3 |
-| 2 | All layers (full fine-tuning) | up to 20 (early stopping, patience=7) | 1e-4 |
-
-**Results achieved**
-
-| Metric | Score |
-|--------|-------|
-| Top-1 accuracy (test set) | **94.04%** |
-| Top-5 accuracy (test set) | **99.22%** |
-
-The notebook also includes:
-- Training curve plots (loss & accuracy by epoch, with phase boundary)
-- Per-class accuracy bar chart
-- Sample correct and incorrect predictions
-- Confusion matrix heatmap focused on the 20 hardest classes
-- Side-by-side visualization of the most confused Pokémon pairs
-- A basic 6th-member recommender (type coverage only)
-
----
-
-### `best_model_v2.pth` — Baseline checkpoint (frozen)
-
-The original v2 checkpoint, preserved so the v3 notebook can compare against it side-by-side. Do not overwrite.
-
-- **Architecture:** EfficientNet-B0 (pretrained on ImageNet, fine-tuned for 150 Pokémon classes)
-- **Output:** probability distribution over 150 Pokémon
-- **Top-1:** 94.04% on the held-out test set
-- Loaded by `team_recommender.ipynb` and by the v3 comparison section
-
----
-
 ### `best_model_v3.pth` — v3 checkpoint (current best)
 
 Produced by re-running `pokemon_team_builder_v2.ipynb` after the Tier S upgrades.
@@ -230,6 +174,11 @@ Produced by re-running `pokemon_team_builder_v2.ipynb` after the Tier S upgrades
 The ranked review of the v2 model that motivated the v3 changes. Tier S items (1–4) are now implemented; Tier A and B items (discriminative learning rates, EMA, temperature scaling, etc.) remain as future work.
 
 ---
+
+
+# Pokémon Team Builder — Project Overview
+
+A computer vision + game strategy project that combines deep learning image classification with Pokémon team optimization. The system identifies Pokémon from photos and recommends the best 6th team member based on type coverage, weakness mitigation, and role balance.
 
 ### `team_recommender.ipynb` — Inference & Recommendation Notebook
 
