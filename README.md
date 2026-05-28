@@ -120,7 +120,6 @@ best_model_v2.pth     ← saved model weights
 team_recommender.ipynb          ← loads model, classifies images, recommends 6th member
 ```
 
-
 ---
 
 # 🆕 What's new in v3 (Tier S improvements)
@@ -174,74 +173,6 @@ Produced by re-running `pokemon_team_builder_v2.ipynb` after the Tier S upgrades
 The ranked review of the v2 model that motivated the v3 changes. Tier S items (1–4) are now implemented; Tier A and B items (discriminative learning rates, EMA, temperature scaling, etc.) remain as future work.
 
 ---
-
-
-# Pokémon Team Builder — Project Overview
-
-A computer vision + game strategy project that combines deep learning image classification with Pokémon team optimization. The system identifies Pokémon from photos and recommends the best 6th team member based on type coverage, weakness mitigation, and role balance.
-
-### `team_recommender.ipynb` — Inference & Recommendation Notebook
-
-A standalone notebook for using the trained model in practice. Loads `best_model_v2.pth` and runs in seconds.
-
-**Data enrichment**
-- Fetches HP / Attack / Defense / Sp.Atk / Sp.Def / Speed for all 150 Pokémon from the PokéAPI
-- Results cached locally to `pokemon_stats.json` so internet is only needed once
-
-**Composite recommendation algorithm**
-
-The 6th member is scored with a weighted formula:
-
-```
-score = w_type × new_types_added
-      + w_weak × weakness_coverage
-      + w_role × fills_missing_role
-```
-
-| Criterion | What it measures |
-|-----------|-----------------|
-| **Type coverage** | How many new types the candidate brings to the team |
-| **Weakness mitigation** | How well the candidate handles the team's shared weaknesses (immune = 2 pts, resists = 1.5 pts, neutral = 1 pt) |
-| **Role balance** | Whether the candidate fills a missing role (sweeper / tank / balanced), derived from base stats |
-
-**Smart filtering**
-- Pre-evolutions excluded (BST < 500)
-- Legendaries excluded (Articuno, Zapdos, Moltres, Mewtwo, Mew)
-- Only the best candidate per evolution line is shown (no recommending both Machop and Machamp)
-
-**What you can do with it**
-
-1. **Random team** — picks 5 random Pokémon images, classifies them with the model, and recommends the best 6th
-2. **Compare multiple teams** — evaluate several preset team compositions side by side
-3. **Experiment with weights** — adjust `w_type`, `w_weak`, `w_role` to prioritize different strategies and see how the ranking changes
-
-**Example output (all-sweeper team)**
-
-```
-Team: [Jolteon, Alakazam, Gengar, Charizard, Aerodactyl]
-Shared weaknesses: Dark, Electric, Ghost, Ground, Ice, Rock, Water
-Missing roles: balanced, tank
-
-Balanced composite strategy → Top pick:
-  Poliwrath  score=15.0 | new types=[Fighting, Water] | resists=[Dark, Ice, Rock, Water] | role=balanced | BST=510
-```
-
----
-
-## How everything connects
-
-```
-PokemonData/          ← 6,820 labeled images (150 Gen-I Pokémon)
-        ↓
-pokemon_team_builder_v2.ipynb   ← trains EfficientNet-B0 (v3 Tier S recipe)
-        ↓
-best_model_v3.pth     ← current best (95.6% top-1)
-best_model_v2.pth     ← frozen baseline (94.0% top-1, kept for comparison)
-        ↓
-team_recommender.ipynb          ← loads model, classifies images, recommends 6th member
-../webapp/                      ← FastAPI demo site (loads best_model_v3.pth)
-```
-
 
 # Component 2 — Masked Team Transformer
 
