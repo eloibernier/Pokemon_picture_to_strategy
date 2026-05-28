@@ -19,6 +19,11 @@ The main notebook. It trains a neural network to recognize 150 Gen-I Pokémon fr
 - 6,820 images across 150 Pokémon classes (avg. ~45 images per class)
 - Exploratory data analysis: class balance, image size distribution, visual samples
 
+**Random Sample**
+
+<img width="1600" height="800" alt="image" src="https://github.com/user-attachments/assets/1e428274-6b17-47e1-b932-902ce8c05ce1" />
+
+
 **Data preparation**
 - Stratified 70/15/15 train/val/test split — every class is proportionally represented in all three sets
 - Training augmentations: horizontal flip, rotation ±15°, color jitter
@@ -39,6 +44,10 @@ Training runs in two phases:
 |--------|-------|
 | Top-1 accuracy (test set) | **94.04%** |
 | Top-5 accuracy (test set) | **99.22%** |
+
+**Top Confused Pairs**
+
+<img width="1600" height="1517" alt="image" src="https://github.com/user-attachments/assets/07a44872-d6c5-4137-b2c1-dda47172a68a" />
 
 The notebook also includes:
 - Training curve plots (loss & accuracy by epoch, with phase boundary)
@@ -150,6 +159,10 @@ A new **"v3 vs v2 — Head-to-Head Comparison"** section at the end of the noteb
 | Test top-5 | 99.22% | 99.12% |
 | McNemar p-value (vs v2) | — | **0.017** (significant) |
 | Discordant pairs | — | 31 v3-only correct vs 14 v2-only |
+
+#### Training curve plots (loss & accuracy by epoch, with phase boundary)
+
+<img width="1388" height="390" alt="image" src="https://github.com/user-attachments/assets/c62a873a-5a68-456f-8316-adbdc9b1c4c5" />
 
 The +1.7pp accuracy gain is **statistically significant**. ECE got worse (label smoothing + MixUp make the model *under-confident* by design — a fixable artifact via temperature scaling, listed as a Tier B follow-up in `CNN_BEST_PRACTICES.md`).
 
