@@ -131,7 +131,7 @@ team_recommender.ipynb          ← loads model, classifies images, recommends 6
 
 ---
 
-# 🆕 What's new in v3 (Tier S improvements)
+# What's new in pokemon_team_builder_v3.ipynb
 
 The training notebook was upgraded with four high-impact, low-effort improvements drawn from `CNN_BEST_PRACTICES.md`. All changes are documented in-notebook with markdown cells (`🆕 v3 Change N:`) explaining *what* changed, *why*, and the *expected effect*.
 
