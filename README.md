@@ -21,8 +21,7 @@ The main notebook. It trains a neural network to recognize 150 Gen-I Pokémon fr
 
 **Random Sample**
 
-<img width="1600" height="800" alt="image" src="https://github.com/user-attachments/assets/1e428274-6b17-47e1-b932-902ce8c05ce1" />
-
+<Figure size 2000x1000 with 32 Axes><img width="1982" height="985" alt="image" src="https://github.com/user-attachments/assets/f777fc03-d3bb-4860-a422-ae3764a3dc72" />
 
 **Data preparation**
 - Stratified 70/15/15 train/val/test split — every class is proportionally represented in all three sets
@@ -47,7 +46,8 @@ Training runs in two phases:
 
 **Top Confused Pairs**
 
-<img width="1600" height="1517" alt="image" src="https://github.com/user-attachments/assets/07a44872-d6c5-4137-b2c1-dda47172a68a" />
+<Figure size 1800x1750 with 30 Axes><img width="1789" height="1695" alt="image" src="https://github.com/user-attachments/assets/52e7a8b5-fd27-4fcb-9e44-78e9727b89ac" />
+
 
 The notebook also includes:
 - Training curve plots (loss & accuracy by epoch, with phase boundary)
